@@ -975,8 +975,8 @@ def consistency_check(value, options, threshold_key, threshold_default, msg, com
         threshold = threshold_default
     compare_func = {'<=': operator.le, '<': operator.lt, '>': operator.gt, '>=': operator.ge,
                     '!=': operator.ne, '==': operator.eq}.get(compare, compare)
-    if not compare_func(value, threshold):
-        if warn_instead:
-            warnings.warn(msg, category=TenpyInconsistencyWarning, stacklevel=2)
-        else:
+    if warn_instead:
+        warnings.warn(msg, category=TenpyInconsistencyWarning, stacklevel=2)
+    else:
+        if not compare_func(value, threshold):
             raise TenpyInconsistencyError(msg)
